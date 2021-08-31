@@ -1,0 +1,35 @@
+* {
+    scroll-behavior: smooth;
+  }
+
+  .app {
+    min-height: 100vh;
+    background-color: #282c34;
+    color: black;
+    padding-bottom: 70px;
+  }
+
+  .middle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0 50px;
+  }
+
+  .pageTitle {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    font-size: 2vw;
+    padding: 4px;
+    color: white;
+  }
+  
+  @media (max-width: 1000px) {
+    .pageTitle {
+      font-size: 5.4vw;
+    }
+    .middle {
+      padding: 0 10px;
+    }
+  } 

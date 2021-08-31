@@ -1,0 +1,15 @@
+.search {
+  display: flex;
+  margin: 10px;
+}
+.tab{
+  width: 50%;
+  text-transform: capitalize!important;
+  font-size:1.1rem!important;
+}
+.tabs{
+  margin: 10px;
+}
+.searchBox{
+  flex: 1;
+} 
