@@ -1,6 +1,6 @@
 import React from 'react'
 import './Login.css'
-import { Grid, Paper, Avatar, TextField, Button, Typography } from '@material-ui/core'
+import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 const login = (props) => {
     const { email, setEmail, password, setPassword, handleLogin, handleSignin, hasAccount, setHasAccount, emailError, passwordError } = props;
