@@ -6,7 +6,7 @@
 }
 .paper{
   padding: 40px;
-  height: 430px!important;
+  height: 440px!important;
   width: 340px!important;
   margin: 40px auto;
   border-radius: 2rem!important;
@@ -14,6 +14,7 @@
 }
 .avatar{
   background-color: #737574!important;
+  margin-bottom: 5px;
 }
 .textfield{
   /* background-color: red; */
@@ -30,7 +31,7 @@
   color: rgb(19, 84, 206);
   font-weight: bolder;
   letter-spacing: 0.5px;
-  margin-left: 3px;
+  margin-left: 1px;
   cursor: pointer;
   font-size: 1.2rem;
   transition: all 400ms ease-in-out;

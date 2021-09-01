@@ -9,7 +9,7 @@ const login = (props) => {
             <Paper elevation={10} className="paper">
                 <Grid align='center'>
                     <Avatar className="avatar"><AccountBoxIcon /></Avatar>
-                    <h2>{hasAccount ? <p>Log In</p> : <p>Sign In</p>}</h2>
+                    <h2>{hasAccount ? <p>Log In</p> : <p>Sign Up</p>}</h2>
                 </Grid>
                 <TextField
                     className="textfield"
@@ -44,7 +44,7 @@ const login = (props) => {
                                 fullWidth>
                                 Log In
                             </Button>
-                            <p className="span-p">Don't have an account? <span className="span" onClick={() => setHasAccount(!hasAccount)}>signin</span></p>
+                            <p className="span-p">Don't have an account? <span className="span" onClick={() => setHasAccount(!hasAccount)}>sign-up</span></p>
                         </>
                     ) : (
                         <>
@@ -55,9 +55,9 @@ const login = (props) => {
                                 className="btn_style"
                                 onClick={handleSignin}
                                 fullWidth>
-                                Sign In
+                                Sign Up
                             </Button>
-                            <p className="span-p">Do have an account? <span className="span" onClick={() => setHasAccount(!hasAccount)}>login</span></p>
+                            <p className="span-p">Do have an account? <span className="span" onClick={() => setHasAccount(!hasAccount)}>log-in</span></p>
                         </>
                     )}
                 </div>
