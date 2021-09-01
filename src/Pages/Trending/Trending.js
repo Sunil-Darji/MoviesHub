@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import SingleContent from "../../components/SingleContent/SingleContent";
 import CustomPagination from "../../components/Pagination/CustomPagination";
-import Header from '../../Header'
-import Footer from '../../Footer'
 import axios from "axios";
+import Footer from "../../Footer";
 const Trending = () => {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
@@ -24,7 +23,6 @@ const Trending = () => {
 
   return (
     <div className="app">
-      <Header/>
       <span className="pageTitle">Trending Today</span>
       <div className="middle">
         {content &&

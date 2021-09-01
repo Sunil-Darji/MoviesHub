@@ -5,9 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import MovieFilterIcon from '@material-ui/icons/MovieFilter';
-import { Link } from 'react-router-dom'
-const Header = () => {
-    const { title, link, head, btn, logo} = useStyles();
+const Header = ({handleLogout}) => {
+    const { title, head, btn, logo} = useStyles();
     return (
         <>
             <AppBar position="static" className={head}>
@@ -16,9 +15,7 @@ const Header = () => {
                     <Typography variant="h6" className={title}>
                         MoviesHub
                     </Typography>
-                    <Link to="/login" className={link}>
-                        <Button variant="contained" className={btn}>Log In</Button>
-                    </Link>
+                        <Button variant="contained" className={btn} onClick={handleLogout}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </>
@@ -31,10 +28,7 @@ const useStyles = makeStyles(() => ({
         flexGrow: 1,
         fontSize: '2.5rem',
         fontWeight: '100'
-    },
-    link: {
-        color: '#d5d5d5'
-    },
+    }, 
     head: {
         width: '100%',
         backgroundColor: "#2d313a",
@@ -44,6 +38,7 @@ const useStyles = makeStyles(() => ({
         // color: 'black',
         backgroundColor: '#e8e3e3de',
         fontWeight: '100',
+        width: '80px',
     },
     logo: {
         fontSize: '2.5rem',

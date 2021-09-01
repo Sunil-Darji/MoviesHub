@@ -1,0 +1,40 @@
+.root_style{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.paper{
+  padding: 40px;
+  height: 430px!important;
+  width: 340px!important;
+  margin: 40px auto;
+  border-radius: 2rem!important;
+  color: black;
+}
+.avatar{
+  background-color: #737574!important;
+}
+.textfield{
+  /* background-color: red; */
+  margin: 25px 0 0px 0!important;
+}
+.btn_style{
+  margin: 25px 0!important;
+}
+
+.span-p{
+  font-size: 1.2rem;
+}
+.span{
+  color: rgb(19, 84, 206);
+  font-weight: bolder;
+  letter-spacing: 0.5px;
+  margin-left: 3px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 400ms ease-in-out;
+}
+.errorMsg{
+  color: rgba(223, 25, 25, 0.945);
+}

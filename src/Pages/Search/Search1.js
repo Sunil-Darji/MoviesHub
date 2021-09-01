@@ -5,7 +5,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from "@material-ui/icons/Search";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import SingleContent from "../../components/SingleContent/SingleContent";
-import Header from '../../Header'
 import Footer from '../../Footer'
 import axios from "axios";
 
@@ -47,7 +46,6 @@ const Search = () => {
 
     return (
         <div className="app">
-            <Header />
             <ThemeProvider theme={darkTheme}>
                 <TextField
                     className="search"

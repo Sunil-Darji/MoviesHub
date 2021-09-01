@@ -3,9 +3,8 @@ import Genres from "../../components/Genres/Genres";
 import useGenre from "../../hooks/useGenre";
 import SingleContent from "../../components/SingleContent/SingleContent";
 import CustomPagination from "../../components/Pagination/CustomPagination";
-import Header from '../../Header'
-import Footer from '../../Footer'
 import axios from "axios";
+import Footer from "../../Footer";
 
 const Movies = () => {
   const [genres, setGenres] = useState([]);
@@ -31,7 +30,6 @@ const Movies = () => {
 
   return (
     <div className="app">
-      <Header/>
       <span className="pageTitle">Discover Movies</span>
       <Genres
         type="movie"
