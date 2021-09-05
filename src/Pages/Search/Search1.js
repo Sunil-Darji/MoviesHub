@@ -8,7 +8,7 @@ import SingleContent from "../../components/SingleContent/SingleContent";
 import Footer from '../../Footer'
 import axios from "axios";
 
-const Search = () => {
+const Search = ({user}) => {
     const [type, setType] = useState(0);
     const [searchText, setSearchText] = useState("");
     const [page, setPage] = useState(1);
@@ -86,6 +86,7 @@ const Search = () => {
                             date={c.first_air_date || c.release_date}
                             media_type={type ? "tv" : "movie"}
                             vote_average={c.vote_average}
+                            user={user}
                         />
                     ))}
                 {!content &&

@@ -1,9 +1,10 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Trending from './Pages/Trending/Trending'
 import Movies from './Pages/Movies/Movies'
 import Series from './Pages/Series/Series'
 import Search from './Pages/Search/Search1'
+import Wishlist from './Pages/Wishlist/Wishlist'
 import Error from './Error'
 import './App.css'
 import Fire from './Firebase/Fire'
@@ -11,7 +12,7 @@ import Login from './Firebase/Login'
 import Header from './Header'
 const App1 = () => {
     const [user, setUser] = useState('');
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('1');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -39,7 +40,7 @@ const App1 = () => {
                     case "auth/wrong-password":
                         setPasswordError(err.message);
                         break;
-                        default: 
+                    default:
                 }
             });
     };
@@ -57,7 +58,7 @@ const App1 = () => {
                     case "auth/weak-password":
                         setPasswordError(err.message);
                         break;
-                        default:  
+                    default:
                 }
             });
     };
@@ -66,33 +67,38 @@ const App1 = () => {
     };
     const authListener = () => {
         Fire.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    clearInputs();
-                    setUser(user);
-                } else {
-                    setUser('');
-                }
-            });
+            if (user) {
+                clearInputs();
+                setUser(user);
+            } else {
+                setUser('');
+            }
+        });
     };
     useEffect(() => {
         authListener();
-    },);
+    });
     return (
         <>
             {user ? (
                 <>
-                <Header handleLogout={handleLogout}/>
-                <BrowserRouter>
-                  <Switch>
-                    <Route path="/" component={Trending} exact />
-                    <Route path="/movies" component={Movies} exact />
-                    <Route path="/series" component={Series} exact />
-                    <Route path="/search" component={Search} exact />
-                    <Route component={Error}></Route>
-                  </Switch>
-                </BrowserRouter>
-              </>
-                ) : (
+                    <Header handleLogout={handleLogout} />
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path="/" exact > <Trending user={user} /> </Route>
+                            <Route path="/movies" exact > <Movies user={user} /> </Route>
+                            <Route path="/series" exact > <Series user={user} /> </Route>
+                            <Route path="/search" exact > <Search user={user} /> </Route>
+                            <Route path="/wishlist" exact > <Wishlist user={user} /> </Route>
+                            <Route > <Error /> </Route>
+                            {/* <Route path="/movies" component={Movies} exact /> */}
+                            {/* <Route path="/series" component={Series} exact /> */}
+                            {/* <Route path="/search" component={Search} exact /> */}
+                            {/* <Route component={Error}></Route> */}
+                        </Switch>
+                    </BrowserRouter>
+                </>
+            ) : (
                 <Login
                     email={email}
                     setEmail={setEmail}

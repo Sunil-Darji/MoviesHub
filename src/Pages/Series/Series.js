@@ -6,7 +6,7 @@ import CustomPagination from "../../components/Pagination/CustomPagination";
 import axios from "axios";
 import Footer from "../../Footer";
 
-const Series = () => {
+const Series = ({user}) => {
   const [genres, setGenres] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [page, setPage] = useState(1);
@@ -50,6 +50,7 @@ const Series = () => {
               date={c.first_air_date || c.release_date}
               media_type="tv"
               vote_average={c.vote_average}
+              user={user}
             />
           ))}
       </div>

@@ -3,7 +3,7 @@ import SingleContent from "../../components/SingleContent/SingleContent";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import axios from "axios";
 import Footer from "../../Footer";
-const Trending = () => {
+const Trending = ({user}) => {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
 
@@ -35,6 +35,7 @@ const Trending = () => {
               date={c.first_air_date || c.release_date}
               media_type={c.media_type}
               vote_average={c.vote_average}
+              user={user}
             />
           ))}
       </div>

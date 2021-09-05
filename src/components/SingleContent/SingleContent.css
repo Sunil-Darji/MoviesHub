@@ -46,3 +46,7 @@
   font-weight: bold!important;
   text-transform: capitalize!important;
 }  
+.remove{
+  background-color: rgba(175, 69, 69, 0.575)!important;
+  color: white!important;
+}
