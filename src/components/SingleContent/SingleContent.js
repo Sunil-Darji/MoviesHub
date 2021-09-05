@@ -19,7 +19,7 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
       media_type: media_type,
       vote_average: vote_average,
     }
-    const res = await fetch(`${process.env.REACT_APP_FIREBASE_DATABASE_URL}${user.uid}.json`,
+    await fetch(`${process.env.REACT_APP_FIREBASE_DATABASE_URL}${user.uid}.json`,
       {
         method: "POST",
         headers: {
