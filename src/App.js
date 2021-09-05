@@ -12,7 +12,7 @@ import Login from './Firebase/Login'
 import Header from './Header'
 const App1 = () => {
     const [user, setUser] = useState('');
-    const [email, setEmail] = useState('1');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
