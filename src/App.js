@@ -91,10 +91,6 @@ const App1 = () => {
                             <Route path="/search" exact > <Search user={user} /> </Route>
                             <Route path="/wishlist" exact > <Wishlist user={user} /> </Route>
                             <Route > <Error /> </Route>
-                            {/* <Route path="/movies" component={Movies} exact /> */}
-                            {/* <Route path="/series" component={Series} exact /> */}
-                            {/* <Route path="/search" component={Search} exact /> */}
-                            {/* <Route component={Error}></Route> */}
                         </Switch>
                     </BrowserRouter>
                 </>
