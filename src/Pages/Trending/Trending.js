@@ -8,18 +8,7 @@ const Trending = ({ user }) => {
   const { list } = useContext(ListContext);
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
-  // const fetchTrending = async () => {
-  //   const { data } = await axios.get(
-  //     `https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
-  //   );
-  //   // console.log(data);
-  //   setContent(data.results);
-  // };
-
-  // useEffect(() => {
-  //   fetchTrending();
-  //   // eslint-disable-next-line
-  // }, [page,content]);
+ 
   useEffect(() => {
     let disposed = false;
   

@@ -16,7 +16,6 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
   // ------------------ add a movie into wishlist ------------------------
   const addMovie = async () => {
     instance.post(`${user.uid}.json`, movie).then((response) => {
-      console.log(response);
       movie["fireid"] = response.data.name;
       setList(list.set(id, movie));
     })
@@ -36,15 +35,18 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
   };
 
   // ------------------ fatch video link ------------------------
-  const fetchVideo = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-    );
-    setVideo(data.results[0]?.key);
-  };
-
   useEffect(() => {
-    fetchVideo();
+    let disposed = false;
+    (async () => {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      )
+  
+      if (disposed) return
+      setVideo(data.results[0]?.key);
+    })()
+  
+    return () => disposed = true
   });
   return (
     <div className="media">
