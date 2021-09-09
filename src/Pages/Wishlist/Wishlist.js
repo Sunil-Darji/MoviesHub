@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import SingleContent from "../../components/SingleContent/SingleContent";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Footer from "../../Footer";
 import './Wishlist.css'
 import { ListContext } from '../../ListContext'
@@ -12,12 +13,12 @@ const Wishlist = ({ user }) => {
             temp.push(c);
         })
         setContent(temp);
-    }, [list,content]);
+    }, [list, content]);
     return (
         <div className="app">
             <span className="pageTitle">Wishlist</span>
             <div className="middle">
-                {content &&
+                {list.size ?
                     content.map((c) => (
                         <SingleContent
                             key={c.id}
@@ -30,7 +31,12 @@ const Wishlist = ({ user }) => {
                             user={user}
                             bol={!list.has(c.id)}
                         />
-                    ))}
+                    )) : (
+                        <div className="no-files">
+                            <FileCopyIcon fontSize="large" />
+                            <div className="empty">No Files</div>
+                        </div>
+                    )}
             </div>
             <Footer />
         </div>
