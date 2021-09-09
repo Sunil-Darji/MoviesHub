@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import img from './Images/404.png'
-import Footer from './Footer'
+import img from '../../Images/404.png'
+import Footer from '../../Footer'
 const Error = () => {
     const { title, imgStyle, container } = useStyles();
     return (

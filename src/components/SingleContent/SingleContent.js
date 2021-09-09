@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { img_300, unavailable } from "../../config/config";
 import "./SingleContent.css";
 import StarIcon from '@material-ui/icons/Star';
@@ -7,51 +7,44 @@ import AddOutlinedIcon from '@material-ui/icons/Add'
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import DeleteIcon from '@material-ui/icons/Delete'
 import axios from "axios";
-const SingleContent = ({ id, poster, title, date, media_type, vote_average, user }) => {
+import { ListContext } from '../../ListContext'
+import instance from "./instance";
+const SingleContent = ({ id, poster, title, date, media_type, vote_average, user, bol }) => {
+  const { list, setList } = useContext(ListContext);
   const [video, setVideo] = useState();
-  const [addOrRemove, setAddOrRemove] = useState(true);
-  const fetchWishlist = async () => {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_FIREBASE_DATABASE_URL}${user.uid}.json`
-    );
-    for (let key in data) {
-      if(data[key].id===id) setAddOrRemove(false);
-    }
+  const movie = { id: id, poster: poster, title: title, date: date, media_type: media_type, vote_average: vote_average }
+  // ------------------ add a movie into wishlist ------------------------
+  const addMovie = async () => {
+    instance.post(`${user.uid}.json`, movie).then((response) => {
+      console.log(response);
+      movie["fireid"] = response.data.name;
+      setList(list.set(id, movie));
+    })
   };
-  const addMovie = async (e) => {
-    e.preventDefault();
-    setAddOrRemove(!addOrRemove);
-    const movie = {
-      id: id,
-      poster: poster,
-      title: title,
-      date: date,
-      media_type: media_type,
-      vote_average: vote_average,
+
+  // ------------------ delete a movie into wishlist ------------------------
+  const removeMovie = async () => {
+    let fireid = "g";
+    for (let [key, value] of list) {
+      if (key === id) fireid = value.fireid;
     }
-    await fetch(`${process.env.REACT_APP_FIREBASE_DATABASE_URL}${user.uid}.json`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": 'application/json',
-        },
-        body: JSON.stringify(movie),
-      }
+    list.delete(id);
+    setList(list);
+    await axios.delete(
+      `${process.env.REACT_APP_FIREBASE_DATABASE_URL}${user.uid}/${fireid}.json`
     );
   };
-  const removeMovie = async (e) => {
-    e.preventDefault();
-    setAddOrRemove(!addOrRemove);
-  };
+
+  // ------------------ fatch video link ------------------------
   const fetchVideo = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
     setVideo(data.results[0]?.key);
   };
+
   useEffect(() => {
     fetchVideo();
-    fetchWishlist();
   });
   return (
     <div className="media">
@@ -69,26 +62,27 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
         <div className="title">
           {title.length > 25 ? (title.substring(0, 22)) + "..." : title} ({date ? (date.substring(0, 4)) : "****"})
         </div>
-        {addOrRemove ? (
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            className="btn-wish"
-            onClick={addMovie}
-            startIcon={<AddOutlinedIcon />}>
-            Watchlist
-          </Button>
-        ) : (
-          <Button
-            variant="contained"
-            fullWidth
-            className="btn-wish remove"
-            onClick={removeMovie}
-            startIcon={<DeleteIcon />}>
-            Remove
-          </Button>
-        )
+        {
+          bol ? (
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              className="btn-wish"
+              onClick={()=> addMovie()}
+              startIcon={<AddOutlinedIcon />}>
+              Watchlist
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              fullWidth
+              className="btn-wish remove"
+              onClick={()=> removeMovie()}
+              startIcon={<DeleteIcon />}>
+              Remove
+            </Button>
+          )
         }
         <Button
           variant="contained"
@@ -102,7 +96,7 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
         </Button>
       </div>
       {/* </ContentModal> */}
-    </div>
+    </div >
   );
 };
 

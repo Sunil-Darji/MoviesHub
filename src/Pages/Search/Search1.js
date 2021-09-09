@@ -1,14 +1,16 @@
+import { useEffect, useState, useContext } from "react";
 import { createTheme, Tab, Tabs, TextField, ThemeProvider } from "@material-ui/core";
 import "./Search1.css";
-import { useEffect, useState } from "react";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from "@material-ui/icons/Search";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Footer from '../../Footer'
 import axios from "axios";
+import { ListContext } from '../../ListContext'
 
-const Search = ({user}) => {
+const Search = ({ user }) => {
+    const { list } = useContext(ListContext);
     const [type, setType] = useState(0);
     const [searchText, setSearchText] = useState("");
     const [page, setPage] = useState(1);
@@ -24,26 +26,41 @@ const Search = ({user}) => {
         },
     });
 
-    const fetchSearch = async () => {
-        try {
+    // const fetchSearch = async () => {
+    //     try {
+    //         const { data } = await axios.get(
+    //             `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${process.env.REACT_APP_API_KEY
+    //             }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+    //         );
+    //         setContent(data.results);
+    //         setNumOfPages(data.total_pages);
+    //         // console.log(data);
+    //     } catch (error) {
+    //         console.log("No Data Found or Search box is empty");
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchSearch();
+    //     // eslint-disable-next-line
+    // }, [type, page, content]);
+
+    useEffect(() => {
+        let disposed = false;
+
+        (async () => {
             const { data } = await axios.get(
                 `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${process.env.REACT_APP_API_KEY
                 }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
-            );
+            )
+
+            if (disposed) return
             setContent(data.results);
             setNumOfPages(data.total_pages);
-            // console.log(data);
-        } catch (error) {
-            console.log("No Data Found or Search box is empty");
-        }
-    };
+        })()
 
-    useEffect(() => {
-        window.scroll(0, 0);
-        fetchSearch();
-        // eslint-disable-next-line
-    }, [type, page]);
-
+        return () => disposed = true
+    }, [type, page, content, searchText]);
     return (
         <div className="app">
             <ThemeProvider theme={darkTheme}>
@@ -51,14 +68,14 @@ const Search = ({user}) => {
                     className="search"
                     label="Search"
                     variant="outlined"
-                    onChange={(e) => { setSearchText(e.target.value); fetchSearch(); }}
+                    onChange={(e) => { setSearchText(e.target.value); }}
                     InputProps={{
                         startAdornment: (
-                          <InputAdornment position="start">
-                            <SearchIcon />
-                          </InputAdornment>
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
                         ),
-                      }}
+                    }}
                 />
                 <Tabs
                     value={type}
@@ -87,6 +104,7 @@ const Search = ({user}) => {
                             media_type={type ? "tv" : "movie"}
                             vote_average={c.vote_average}
                             user={user}
+                            bol={!list.has(c.id)}
                         />
                     ))}
                 {!content &&

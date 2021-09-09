@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { ListProvider } from './ListContext'
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Trending from './Pages/Trending/Trending'
 import Movies from './Pages/Movies/Movies'
 import Series from './Pages/Series/Series'
 import Search from './Pages/Search/Search1'
 import Wishlist from './Pages/Wishlist/Wishlist'
-import Error from './Error'
+import Error from './components/Error/Error'
 import './App.css'
 import Fire from './Firebase/Fire'
 import Login from './Firebase/Login'
 import Header from './Header'
+import UpdateList from './UpdateList'
 const App1 = () => {
     const [user, setUser] = useState('');
     const [email, setEmail] = useState('');
@@ -81,7 +83,8 @@ const App1 = () => {
     return (
         <>
             {user ? (
-                <>
+                <ListProvider>
+                    <UpdateList user={user}/>
                     <Header handleLogout={handleLogout} />
                     <BrowserRouter>
                         <Switch>
@@ -93,7 +96,7 @@ const App1 = () => {
                             <Route > <Error /> </Route>
                         </Switch>
                     </BrowserRouter>
-                </>
+                </ListProvider>
             ) : (
                 <Login
                     email={email}

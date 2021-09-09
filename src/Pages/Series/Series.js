@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import Genres from "../../components/Genres/Genres";
 import useGenre from "../../hooks/useGenre";
 import SingleContent from "../../components/SingleContent/SingleContent";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import axios from "axios";
 import Footer from "../../Footer";
+import { ListContext } from '../../ListContext'
 
 const Series = ({user}) => {
+  const {list} = useContext(ListContext);
   const [genres, setGenres] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [page, setPage] = useState(1);
@@ -14,20 +16,33 @@ const Series = ({user}) => {
   const [numOfPages, setNumOfPages] = useState();
   const genreforURL = useGenre(selectedGenres);
 
-  const fetchSeries = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`
-    );
-    setContent(data.results);
-    setNumOfPages(data.total_pages);
-  };
+  // const fetchSeries = async () => {
+  //   const { data } = await axios.get(
+  //     `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`
+  //   );
+  //   setContent(data.results);
+  //   setNumOfPages(data.total_pages);
+  // };
 
+  // useEffect(() => {
+  //   fetchSeries();
+  //   // eslint-disable-next-line
+  // }, [genreforURL, page,content]);
   useEffect(() => {
-    window.scroll(0, 0);
-    fetchSeries();
-    // eslint-disable-next-line
-  }, [genreforURL, page]);
-
+    let disposed = false;
+  
+    (async () => {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`
+      )
+  
+      if (disposed) return
+      setContent(data.results);
+    setNumOfPages(data.total_pages);
+    })()
+  
+    return () => disposed = true
+  }, [genreforURL, page,content]);
   return (
     <div className="app">
       <span className="pageTitle">Discover Series</span>
@@ -51,6 +66,7 @@ const Series = ({user}) => {
               media_type="tv"
               vote_average={c.vote_average}
               user={user}
+              bol={!list.has(c.id)}
             />
           ))}
       </div>
