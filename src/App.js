@@ -67,8 +67,8 @@ const App1 = () => {
     const handleLogout = () => {
         Fire.auth().signOut();
     };
-    const authListener = () => {
-        Fire.auth().onAuthStateChanged((user) => {
+    useEffect(() => {
+        const authListener = Fire.auth().onAuthStateChanged((user) => {
             if (user) {
                 clearInputs();
                 setUser(user);
@@ -76,9 +76,9 @@ const App1 = () => {
                 setUser('');
             }
         });
-    };
-    useEffect(() => {
-        authListener();
+
+        // Cleanup: unsubscribe from auth listener when component unmounts
+        return () => authListener();
     }, []);
     return (
         <>
