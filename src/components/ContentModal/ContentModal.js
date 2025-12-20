@@ -50,7 +50,7 @@ const ContentModal=({ children, media_type, id })=> {
     fetchData();
     fetchVideo();
     // eslint-disable-next-line
-  }, []);
+  }, [media_type, id]);
 
   return (
     <>

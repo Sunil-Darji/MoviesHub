@@ -7,11 +7,13 @@ const UpdateList = ({user}) => {
         const { data } = await axios.get(
             `${process.env.REACT_APP_FIREBASE_DATABASE_URL}${user.uid}.json`
         );
+        const newList = new Map(list);
         for (let key in data) {
             const xx=data[key];
             xx["fireid"]=key;
-            setList(list.set(data[key].id,xx));
+            newList.set(data[key].id, xx);
         }
+        setList(newList);
     };
     useEffect(() => {
         fetchWishlist();
@@ -24,5 +26,3 @@ const UpdateList = ({user}) => {
 }
 
 export default UpdateList
-
-

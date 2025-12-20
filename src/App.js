@@ -79,7 +79,7 @@ const App1 = () => {
     };
     useEffect(() => {
         authListener();
-    });
+    }, []);
     return (
         <>
             {user ? (
