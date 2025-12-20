@@ -1,6 +1,7 @@
-import 'firebase/auth';
-import 'firebase/firestore';
-import { initializeApp } from 'firebase/app'; 
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -8,8 +9,17 @@ const firebaseConfig = {
     storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    databaseUrl: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
 };
 
-const Fire = initializeApp(firebaseConfig); 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
+
+// Create a Fire object that mimics the old API for backward compatibility
+const Fire = {
+    auth: () => auth,
+    firestore: () => firestore,
+};
+
 export default Fire;

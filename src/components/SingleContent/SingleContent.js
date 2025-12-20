@@ -17,7 +17,9 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
   const addMovie = async () => {
     instance.post(`${user.uid}.json`, movie).then((response) => {
       movie["fireid"] = response.data.name;
-      setList(list.set(id, movie));
+      const newList = new Map(list);
+      newList.set(id, movie);
+      setList(newList);
     })
   };
 
@@ -27,8 +29,9 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
     for (let [key, value] of list) {
       if (key === id) fireid = value.fireid;
     }
-    list.delete(id);
-    setList(list);
+    const newList = new Map(list);
+    newList.delete(id);
+    setList(newList);
     await axios.delete(
       `${process.env.REACT_APP_FIREBASE_DATABASE_URL}${user.uid}/${fireid}.json`
     );
@@ -47,7 +50,7 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
     })()
   
     return () => disposed = true
-  });
+  }, [media_type, id]);
   return (
     <div className="media">
       {/* <ContentModal media_type={media_type} id={id}> */}

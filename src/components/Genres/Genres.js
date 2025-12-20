@@ -30,7 +30,7 @@ const Genres = ({selectedGenres,setSelectedGenres,genres,setGenres,type,setPage,
       setGenres({}); // unmounting
     };
     // eslint-disable-next-line
-  }, []);
+  }, [type]);
 
   return (
     <div style={{ padding: "6px 5px"}}>

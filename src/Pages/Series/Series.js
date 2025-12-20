@@ -30,7 +30,7 @@ const Series = ({user}) => {
     })()
   
     return () => disposed = true
-  }, [genreforURL, page,content]);
+  }, [genreforURL, page]);
   return (
     <div className="app">
       <span className="pageTitle">Discover Series</span>

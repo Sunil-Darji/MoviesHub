@@ -41,7 +41,7 @@ const Search = ({ user }) => {
         })()
 
         return () => disposed = true
-    }, [type, page, content, searchText]);
+    }, [type, page, searchText]);
     return (
         <div className="app">
             <ThemeProvider theme={darkTheme}>

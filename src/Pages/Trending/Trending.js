@@ -22,7 +22,7 @@ const Trending = ({ user }) => {
     })()
   
     return () => disposed = true
-  },[page,content]);
+  },[page]);
   return (
     <div className="app">
       <span className="pageTitle">Trending Today</span>
