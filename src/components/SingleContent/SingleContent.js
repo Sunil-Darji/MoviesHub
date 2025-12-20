@@ -47,7 +47,7 @@ const SingleContent = ({ id, poster, title, date, media_type, vote_average, user
     })()
   
     return () => disposed = true
-  });
+  }, [media_type, id]);
   return (
     <div className="media">
       {/* <ContentModal media_type={media_type} id={id}> */}

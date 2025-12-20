@@ -29,7 +29,7 @@ const Movies = ({user}) => {
     setNumOfPages(data.total_pages);
     })()
     return () => disposed = true
-  }, [genreforURL, page,content]);
+  }, [genreforURL, page]);
 
   return (
     <div className="app">

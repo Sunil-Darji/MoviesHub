@@ -13,7 +13,7 @@ const Wishlist = ({ user }) => {
             temp.push(c);
         })
         setContent(temp);
-    }, [list, content]);
+    }, [list]);
     return (
         <div className="app">
             <span className="pageTitle">Wishlist</span>
